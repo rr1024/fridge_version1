@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_fragment1"
+        android:enabled="true"
+        android:icon="@drawable/one"
+        android:title="a1"
+        android:checked="true"
+        android:iconTint="@drawable/item_color"/>
+    <item
+        android:id="@+id/item_fragment2"
+        android:enabled="true"
+        android:icon="@drawable/two"
+        android:title="a2"
+        android:checked="true"
+        android:iconTint="@drawable/item_color"/>
+    <item
+        android:id="@+id/item_fragment3"
+        android:enabled="true"
+        android:icon="@drawable/three"
+        android:title="a3"
+        android:checked="true"
+        android:iconTint="@drawable/item_color"/>
+</menu>
