@@ -5,14 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.fridge_version1.fragments.MainFragment;
 import com.example.fridge_version1.fragments.MemoFragment;
 import com.example.fridge_version1.fragments.StockFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     Fragment fragment_main;
     Fragment fragment_stock;
     Fragment fragment_memo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,5 +60,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
     }
 }
