@@ -11,14 +11,28 @@
         android:layout_height="match_parent"
         android:background="#FBC02D">
 
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include layout="@layout/toolbar_basic" />
+        </LinearLayout>
+
         <androidx.gridlayout.widget.GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_margin="10dp"
             app:columnCount="2"
-            app:rowCount="3"
-            tools:layout_editor_absoluteX="20dp"
-            tools:layout_editor_absoluteY="20dp">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+            app:rowCount="3">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardview_frozen"

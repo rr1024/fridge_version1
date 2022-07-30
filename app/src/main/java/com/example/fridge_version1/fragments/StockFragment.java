@@ -5,25 +5,23 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.fridge_version1.MainActivity;
-import com.example.fridge_version1.MainActivity3;
+import com.example.fridge_version1.StockActivity;
 import com.example.fridge_version1.R;
+import com.example.fridge_version1.databinding.FragmentStockBinding;
 
 public class StockFragment extends Fragment {
 
+    private FragmentStockBinding fragmentStockBinding;
+
     private View view;
-    private String TAG = "Stock";
-    ActionBar actionBar;
-    CardView card_fro, card_fri, card_kim1, card_kim2, card_room;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,64 +31,68 @@ public class StockFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.i(TAG, "onCreateView");
-        view = inflater.inflate(R.layout.fragment_stock, container, false);
+        fragmentStockBinding = FragmentStockBinding.inflate(inflater, container, false);
 
-        card_fro = (CardView) view.findViewById(R.id.cardview_frozen);
-        card_fri = (CardView) view.findViewById(R.id.cardview_fridge);
-        card_kim1 = (CardView) view.findViewById(R.id.cardview_kimchi1);
-        card_kim2 = (CardView) view.findViewById(R.id.cardview_kimchi2);
-        card_room = (CardView) view.findViewById(R.id.cardview_room);
+        view = fragmentStockBinding.getRoot();
 
-        actionBar =  ((MainActivity)getActivity()).getSupportActionBar();
-        actionBar.setTitle("냉장고 재고 관리");
-        actionBar.setDisplayHomeAsUpEnabled(false);
-
-        card_fro.setOnClickListener(new View.OnClickListener() {
+        fragmentStockBinding.cardviewFrozen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(((MainActivity)getActivity()),MainActivity3.class);
+                Intent intent = new Intent(((MainActivity)getActivity()), StockActivity.class);
                 intent.putExtra("id", "냉동실 관리");
+                intent.putExtra("num", "1");
                 startActivity(intent);
             }
         });
 
-        card_fri.setOnClickListener(new View.OnClickListener() {
+        fragmentStockBinding.cardviewFridge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(((MainActivity)getActivity()),MainActivity3.class);
-                intent.putExtra("id", "냉장고 관리");
+                Intent intent = new Intent(((MainActivity)getActivity()), StockActivity.class);
+                intent.putExtra("id", "냉장실 관리");
+                intent.putExtra("num", "2");
                 startActivity(intent);
             }
         });
 
-        card_kim1.setOnClickListener(new View.OnClickListener() {
+        fragmentStockBinding.cardviewKimchi1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(((MainActivity)getActivity()),MainActivity3.class);
-                intent.putExtra("id", "김치냉장고 (왼편)");
+                Intent intent = new Intent(((MainActivity)getActivity()), StockActivity.class);
+                intent.putExtra("id", "김냉(왼쪽) 관리");
+                intent.putExtra("num", "3");
                 startActivity(intent);
             }
         });
 
-        card_kim2.setOnClickListener(new View.OnClickListener() {
+        fragmentStockBinding.cardviewKimchi2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(((MainActivity)getActivity()),MainActivity3.class);
-                intent.putExtra("id", "김치냉장고 (오른편)");
+                Intent intent = new Intent(((MainActivity)getActivity()), StockActivity.class);
+                intent.putExtra("id", "김냉(오른쪽) 관리");
+                intent.putExtra("num", "4");
                 startActivity(intent);
             }
         });
 
-        card_room.setOnClickListener(new View.OnClickListener() {
+        fragmentStockBinding.cardviewRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(((MainActivity)getActivity()),MainActivity3.class);
-                intent.putExtra("id", "실온보관 제품");
+                Intent intent = new Intent(((MainActivity)getActivity()), StockActivity.class);
+                intent.putExtra("id", "실온 제품");
+                intent.putExtra("num", "5");
                 startActivity(intent);
             }
         });
+
+        TextView textView = view.findViewById(R.id.title_text);
+        textView.setText("냉장고 관리");
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mainFragment"
+        android:checked="false"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_home"
+        android:iconTint="@drawable/item_color"
+        android:title="home" />
+    <item
+        android:id="@+id/stockFragment"
+        android:checked="false"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_kitchen"
+        android:iconTint="@drawable/item_color"
+        android:title="stock" />
+    <item
+        android:id="@+id/memoFragment"
+        android:checked="false"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_border"
+        android:iconTint="@drawable/item_color"
+        android:title="memo" />
+</menu>
