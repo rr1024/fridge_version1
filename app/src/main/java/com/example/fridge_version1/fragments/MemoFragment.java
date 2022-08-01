@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +23,11 @@ import com.example.fridge_version1.MemoAdapter;
 import com.example.fridge_version1.R;
 import com.example.fridge_version1.databinding.FragmentMemoBinding;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -35,8 +39,8 @@ public class MemoFragment extends Fragment {
     private MemoAdapter memoAdapter;
     private View view;
     private ArrayList<Memo> memos = new ArrayList<Memo>();
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference databaseReference = database.getReference();
+    FirebaseDatabase database = FirebaseDatabase.getInstance("https://fridge-management-app-3f538-default-rtdb.firebaseio.com/");
+    DatabaseReference databaseReference = database.getReference("memo");
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,23 @@ public class MemoFragment extends Fragment {
         TextView textView = view.findViewById(R.id.title_text);
         textView.setText("메모");
 
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                memos.clear();
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    Memo initMemo = snapshot1.getValue(Memo.class);
+                    memos.add(initMemo);
+                    memoAdapter.addItem(initMemo);
+                }
+                memoAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
@@ -77,6 +98,7 @@ public class MemoFragment extends Fragment {
                         memos.remove(position);
                         memoAdapter.removeItem(position);
                         memoAdapter.notifyDataSetChanged();
+                        databaseReference.child(deleteMemo.getTitle()).removeValue();
 
                         Snackbar.make(fragmentMemoBinding.memoRecycler, deleteMemo.getTitle(), Snackbar.LENGTH_LONG)
                                 .setAction("복구", new View.OnClickListener() {
@@ -85,6 +107,7 @@ public class MemoFragment extends Fragment {
                                         memos.add(position, deleteMemo);
                                         memoAdapter.addItem(position, deleteMemo);
                                         memoAdapter.notifyItemInserted(position);
+                                        databaseReference.child(deleteMemo.getTitle()).setValue(deleteMemo);
                                     }
                                 }).show();
                         break;
@@ -122,7 +145,7 @@ public class MemoFragment extends Fragment {
 
                 memos.add(addMemo);
                 memoAdapter.addItem(addMemo);
-                databaseReference.child("memo").setValue(addMemo);
+                databaseReference.child(addMemo.getTitle()).setValue(addMemo);
                 fragmentMemoBinding.editText.setText("");
                 fragmentMemoBinding.cardView.setVisibility(View.INVISIBLE);
                 fragmentMemoBinding.floatingActionButton.setVisibility(View.VISIBLE);

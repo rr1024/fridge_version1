@@ -7,8 +7,9 @@
         <entry key="..\:/Users/cgy20/AndroidStudioProjects/fridge_version1/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/cgy20/AndroidStudioProjects/fridge_version1/app/src/main/res/layout/activity_main2.xml" value="0.3374094202898551" />
         <entry key="..\:/Users/cgy20/AndroidStudioProjects/fridge_version1/app/src/main/res/layout/activity_main3.xml" value="0.16666666666666666" />
-        <entry key="..\:/Users/cgy20/AndroidStudioProjects/fridge_version1/app/src/main/res/layout/activity_stock.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/cgy20/AndroidStudioProjects/fridge_version1/app/src/main/res/layout/activity_stock.xml" value="0.22" />
         <entry key="..\:/Users/cgy20/AndroidStudioProjects/fridge_version1/app/src/main/res/layout/back_toolbar.xml" value="0.1" />
+        <entry key="..\:/Users/cgy20/AndroidStudioProjects/fridge_version1/app/src/main/res/layout/dialog_stock.xml" value="0.2557291666666667" />
         <entry key="..\:/Users/cgy20/AndroidStudioProjects/fridge_version1/app/src/main/res/layout/fragment_1.xml" value="0.2857789855072464" />
         <entry key="..\:/Users/cgy20/AndroidStudioProjects/fridge_version1/app/src/main/res/layout/fragment_2.xml" value="0.2857789855072464" />
         <entry key="..\:/Users/cgy20/AndroidStudioProjects/fridge_version1/app/src/main/res/layout/fragment_3.xml" value="0.2857789855072464" />
@@ -20,6 +21,7 @@
         <entry key="..\:/Users/cgy20/AndroidStudioProjects/fridge_version1/app/src/main/res/layout/fragment_temp.xml" value="0.15534420289855072" />
         <entry key="..\:/Users/cgy20/AndroidStudioProjects/fridge_version1/app/src/main/res/layout/memo_layout.xml" value="0.22" />
         <entry key="..\:/Users/cgy20/AndroidStudioProjects/fridge_version1/app/src/main/res/layout/recyclerview_item.xml" value="0.1" />
+        <entry key="..\:/Users/cgy20/AndroidStudioProjects/fridge_version1/app/src/main/res/layout/recyclerview_stock.xml" value="0.2557291666666667" />
         <entry key="..\:/Users/cgy20/AndroidStudioProjects/fridge_version1/app/src/main/res/layout/toolbar_basic.xml" value="0.3134057971014493" />
         <entry key="..\:/Users/cgy20/AndroidStudioProjects/fridge_version1/app/src/main/res/layout/toolbar_memo.xml" value="0.3328804347826087" />
         <entry key="..\:/Users/cgy20/AndroidStudioProjects/fridge_version1/app/src/main/res/layout/toolbar_stock.xml" value="0.24818840579710144" />
