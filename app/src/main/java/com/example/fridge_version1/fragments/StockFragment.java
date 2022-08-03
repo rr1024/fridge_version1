@@ -40,7 +40,7 @@ public class StockFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(((MainActivity)getActivity()), StockActivity.class);
                 intent.putExtra("id", "냉동실 관리");
-                intent.putExtra("num", "1");
+                intent.putExtra("num", "0");
                 startActivity(intent);
             }
         });
@@ -50,7 +50,7 @@ public class StockFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(((MainActivity)getActivity()), StockActivity.class);
                 intent.putExtra("id", "냉장실 관리");
-                intent.putExtra("num", "2");
+                intent.putExtra("num", "1");
                 startActivity(intent);
             }
         });
@@ -60,7 +60,7 @@ public class StockFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(((MainActivity)getActivity()), StockActivity.class);
                 intent.putExtra("id", "김냉(왼쪽) 관리");
-                intent.putExtra("num", "3");
+                intent.putExtra("num", "2");
                 startActivity(intent);
             }
         });
@@ -70,7 +70,7 @@ public class StockFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(((MainActivity)getActivity()), StockActivity.class);
                 intent.putExtra("id", "김냉(오른쪽) 관리");
-                intent.putExtra("num", "4");
+                intent.putExtra("num", "3");
                 startActivity(intent);
             }
         });
@@ -80,7 +80,7 @@ public class StockFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(((MainActivity)getActivity()), StockActivity.class);
                 intent.putExtra("id", "실온 제품");
-                intent.putExtra("num", "5");
+                intent.putExtra("num", "4");
                 startActivity(intent);
             }
         });

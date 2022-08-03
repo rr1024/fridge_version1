@@ -23,7 +23,7 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder>{
     @Override
     public StockAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View itemView = inflater.inflate(R.layout.recyclerview_stock, viewGroup, false);
+        View itemView = inflater.inflate(R.layout.stock_layout, viewGroup, false);
 
         context = viewGroup.getContext();
 
@@ -59,15 +59,19 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder>{
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView name_view;
+        TextView dateText;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            name_view = itemView.findViewById(R.id.textView);
+            name_view = itemView.findViewById(R.id.stockNameText);
+            dateText = itemView.findViewById(R.id.dateText);
+
         }
 
         public void setItem(Stock item) {
             name_view.setText(item.getName());
+            dateText.setText(item.getDate());
         }
     }
 }

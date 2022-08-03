@@ -59,7 +59,6 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.ViewHolder> {
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title_view;
-        TextView description;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
