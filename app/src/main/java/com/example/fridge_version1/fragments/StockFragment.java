@@ -35,6 +35,7 @@ public class StockFragment extends Fragment {
 
         view = fragmentStockBinding.getRoot();
 
+        // 카드뷰 클릭하여 stockActivity로 이동(stockActivity 바 제목, id 전달)
         fragmentStockBinding.cardviewFrozen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

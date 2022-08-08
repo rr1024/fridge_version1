@@ -10,13 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder>{
 
     ArrayList<Stock> items = new ArrayList<Stock>();
 
     Context context;
-
     int lastPosition = -1;
 
     @NonNull
@@ -59,19 +61,59 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder>{
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView name_view;
-        TextView dateText;
+        TextView dDayText;
+        CircleImageView dDayImage;
+
+        private final int ONE_DAY = 24 * 60 * 60 * 1000;
+        int color;
+
+        // 디데이 표현하기 위한 함수
+        private String getDday(int mYear, int mMonth, int mDay) {
+            final Calendar dDayCalendar = Calendar.getInstance();
+            dDayCalendar.set(mYear, mMonth, mDay);
+
+            final long dday = dDayCalendar.getTimeInMillis() / ONE_DAY;
+            final long today = Calendar.getInstance().getTimeInMillis() / ONE_DAY;
+            long result = dday - today;
+
+            color = (int) result;
+            String strFormat;
+            if (result > 0) {
+                strFormat = "D-%d";
+            } else if (result == 0) {
+                strFormat = "Today";
+            }
+            else {
+                result *= -1;
+                strFormat = "D+%d";
+            }
+            final String strCount = (String.format(strFormat, result));
+
+            return strCount;
+        }
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             name_view = itemView.findViewById(R.id.stockNameText);
-            dateText = itemView.findViewById(R.id.dateText);
-
+            dDayText = itemView.findViewById(R.id.dday_Text);
+            dDayImage = itemView.findViewById(R.id.expireImage);
         }
 
         public void setItem(Stock item) {
             name_view.setText(item.getName());
-            dateText.setText(item.getDate());
+            dDayText.setText(getDday(item.getYear(), item.getMonth(), item.getDay()));
+            if (color > 3) {
+                dDayImage.setImageResource(R.drawable.green);
+            }
+            else if (color <= 3 && color > -1) {
+                dDayImage.setImageResource(R.drawable.red);
+            }
+            else {
+                dDayImage.setImageResource(R.drawable.black);
+            }
         }
+
     }
+
 }

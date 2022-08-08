@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +62,10 @@ public class MemoFragment extends Fragment {
         TextView textView = view.findViewById(R.id.title_text);
         textView.setText("메모");
 
+        /*
+         Firebase database에서 memo 가져오는 부분
+         adapter에 memo 아이템 추가해서 뷰 초기화
+         */
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -81,12 +84,14 @@ public class MemoFragment extends Fragment {
             }
         });
 
+        // 메모 삭제하는 부분 구현
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
             }
 
+            // 왼쪽으로 슬라이싱하여 memo 삭제 기능 구현
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position =  viewHolder.getAdapterPosition();
@@ -100,6 +105,7 @@ public class MemoFragment extends Fragment {
                         memoAdapter.notifyDataSetChanged();
                         databaseReference.child(deleteMemo.getTitle()).removeValue();
 
+                        // snackbar 클릭시 삭제한 메모 복구
                         Snackbar.make(fragmentMemoBinding.memoRecycler, deleteMemo.getTitle(), Snackbar.LENGTH_LONG)
                                 .setAction("복구", new View.OnClickListener() {
                                     @Override
@@ -128,6 +134,7 @@ public class MemoFragment extends Fragment {
             }
         }).attachToRecyclerView(fragmentMemoBinding.memoRecycler);
 
+        // memo 추가하는 floatingActionButton
         fragmentMemoBinding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,6 +143,7 @@ public class MemoFragment extends Fragment {
             }
         });
 
+        // cardView에 메모 작성 후 어댑터와 데이터베이스에 메모 추가 구현
         fragmentMemoBinding.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

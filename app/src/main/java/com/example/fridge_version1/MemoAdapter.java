@@ -58,16 +58,16 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.ViewHolder> {
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title_view;
+        TextView memo_view;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            title_view = itemView.findViewById(R.id.title_text);
+            memo_view = itemView.findViewById(R.id.title_text);
         }
 
         public void setItem(Memo item) {
-            title_view.setText(item.getTitle());
+            memo_view.setText(item.getTitle());
         }
     }
 }

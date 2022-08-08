@@ -9,12 +9,11 @@
     android:padding="15dp">
 
     <TextView
-        android:id="@+id/dateText"
+        android:id="@+id/dday_Text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="TextView"
-        android:textSize="10sp" />
+        android:text="TextView" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -24,6 +23,14 @@
         app:srcCompat="@drawable/ic_baseline_kitchen"
         tools:srcCompat="@drawable/ic_baseline_kitchen" />
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/expireImage"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/green"
+        app:civ_border_overlay="true"
+        app:civ_border_width="1dp" />
+
     <TextView
         android:id="@+id/stockNameText"
         android:layout_width="wrap_content"
@@ -31,4 +38,5 @@
         android:layout_margin="5dp"
         android:text="TextView"
         android:textSize="20sp" />
+
 </LinearLayout>
