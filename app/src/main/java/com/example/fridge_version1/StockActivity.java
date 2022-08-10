@@ -39,6 +39,7 @@ public class StockActivity extends AppCompatActivity {
     Toolbar toolbar;
     Dialog dialog;
     DatePickerDialog datePickerDialog;
+    int sort; // 냉장고 정렬방법 구분하기 위한 식별자
     int id; // 냉장고 섹터별로 구분하기 위한 식별자
     String num; // stockFragment에서 냉장고 구별을 위한 식별자
     int year, month, day;   // 디데이 구현을 위한 변수
@@ -63,6 +64,12 @@ public class StockActivity extends AppCompatActivity {
         title.setText(getIntent().getStringExtra("id"));    // 상단 바 타이틀
 
         num = getIntent().getStringExtra("num");    // 섹터 식별자
+        id = Integer.parseInt(num);
+
+        stockBinding.stockRecycler.setHasFixedSize(true);
+        stockBinding.stockRecycler.setLayoutManager(new GridLayoutManager(this, 4));
+        stockAdapter = new StockAdapter();
+        stockBinding.stockRecycler.setAdapter(stockAdapter);
 
         // 각 냉장고 별 데이터 불러오는 부분(num으로 구분)
         databaseReference.child(num).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -84,10 +91,6 @@ public class StockActivity extends AppCompatActivity {
             }
         });
 
-        stockBinding.stockRecycler.setHasFixedSize(true);
-        stockBinding.stockRecycler.setLayoutManager(new GridLayoutManager(this, 4));
-        stockAdapter = new StockAdapter();
-        stockBinding.stockRecycler.setAdapter(stockAdapter);
 
         // 타이틀 클릭을 통해서 데이터 변경
         title.setOnClickListener(new View.OnClickListener() {
@@ -131,13 +134,56 @@ public class StockActivity extends AppCompatActivity {
         stockBinding.modeCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final CharSequence[] items = {"유통기한 임박순", "등록순"};
+                final CharSequence[] items = {"등록순", "유통기한 임박순"};
                 AlertDialog.Builder d = new AlertDialog.Builder(StockActivity.this);
 
                 d.setTitle("정렬 방식").setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         stockBinding.layoutText.setText(items[i]);
+                        if (i == 0) {
+                            stockAdapter.removeAllItem();
+                            databaseReference.child(Integer.toString(id)).orderByChild("writeTime").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    stocks.clear();
+                                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                        Stock initStock = dataSnapshot.getValue(Stock.class);
+                                        stocks.add(initStock);
+                                        stockAdapter.addItem(initStock);
+                                    }
+                                    stockAdapter.notifyDataSetChanged();
+                                    stockBinding.stockCount.setText(String.format("%d", stocks.size()));
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
+                        else {
+                            stockAdapter.removeAllItem();
+                            databaseReference.child(Integer.toString(id)).orderByChild("dday").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    stocks.clear();
+                                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                        Stock initStock = dataSnapshot.getValue(Stock.class);
+                                        stocks.add(initStock);
+                                        stockAdapter.addItem(initStock);
+                                    }
+                                    stockAdapter.notifyDataSetChanged();
+                                    stockBinding.stockCount.setText(String.format("%d", stocks.size()));
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
+
                     }
                 });
                 d.show();
@@ -194,6 +240,9 @@ public class StockActivity extends AppCompatActivity {
                 okBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        Calendar dDayCalendar = Calendar.getInstance();
+                        dDayCalendar.set(year, month, day);
+                        long dday = dDayCalendar.getTimeInMillis();
                         Stock addStock = new Stock();
                         addStock.setId(id);
                         addStock.setName(String.format("%s", nameEditText.getText()));
@@ -201,6 +250,8 @@ public class StockActivity extends AppCompatActivity {
                         addStock.setYear(year);
                         addStock.setMonth(month);
                         addStock.setDay(day);
+                        addStock.setWriteTime(System.currentTimeMillis());
+                        addStock.setDday(dday);
                         stocks.add(addStock);
                         stockAdapter.addItem(addStock);
                         stockAdapter.notifyDataSetChanged();

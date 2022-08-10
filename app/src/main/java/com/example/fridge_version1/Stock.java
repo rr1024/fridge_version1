@@ -7,7 +7,8 @@ public class Stock {
     int day;
     String name;
     String date;
-    String dday;
+    long dday;
+    long writeTime;
 
     public int getId() {
         return id;
@@ -25,6 +26,9 @@ public class Stock {
 
     public String getDate() { return date; }
 
+    public long getWriteTime() { return writeTime; }
+
+    public long getDday() { return dday; }
 
     public void setId(int id) {
         this.id = id;
@@ -41,4 +45,8 @@ public class Stock {
     public void setMonth(int month) { this.month = month; }
 
     public void setDay(int day) { this.day = day; }
+
+    public void setWriteTime(long writeTime) { this.writeTime = writeTime; }
+
+    public void setDday(long dday) { this.dday = dday; }
 }
